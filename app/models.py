@@ -11,4 +11,6 @@ from django.contrib.auth.models import User
 
 class Wave(models.Model):
     name =  models.CharField(max_length=50)
-    site_id = models.IntegerField(default=00000000)
+    site_id = models.CharField(max_length=8)
+    in_level = models.IntegerField(default=0)
+    awesome_level = models.IntegerField(default=0)

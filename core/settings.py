@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_components',
     'app',
     'wave'  # Enable the inner app 
 ]
@@ -63,6 +64,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+             'builtins': [
+                'django_components.templatetags.component_tags',
+            ]
         },
     },
 ]

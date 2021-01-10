@@ -9,16 +9,17 @@ from django.template import loader
 from django.http import HttpResponse
 from django import template
 from app.models import Wave
+import app.lib.RiverWave as RiverWave
+import app.components
 
 
-@login_required(login_url="/login/")
 def index(request):
+    waves_in_db = Wave.objects.all()
+    waves = [RiverWave.View(i.site_id, 'dv', period='P10D') for i in waves_in_db]
+    infos = [i.info() for i in waves]
     context = {}
     context['segment'] = 'index'
-    waves = Wave.objects.all()
-    context['waves'] = waves
-    flow = hydrofunctions.NWIS("13206000",  'dv', period="P10D")
-    context['flow'] = format_site_data(flow)
+    context['waves'] = infos
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
 
@@ -27,21 +28,22 @@ def wave(request):
     site_id = request.GET.get('site_id')
     if site_id is None:
         site_id = "13206000"
-    flow = hydrofunctions.NWIS(site_id,  'dv', period="P10D")
+    wave = RiverWave.View(site_id, 'dv', period="P30D")
     context = {}
     context['segment'] = 'wave'
     context['site_id'] = site_id
-    context['wave'] = format_site_data(flow)
+    context['wave'] = wave.build()
     html_template = loader.get_template('wave.html')
     return HttpResponse(html_template.render(context, request))
 
 
 @login_required(login_url="/login/")
 def build(request):
-    wave_info = [{'name': 'Boise', 'site_id': 13206000},
-                 {'name': 'Lochsa', 'site_id': 13337000}]
+    wave_info = [{'name': 'Boise Whitewater Park', 'site_id': '13206000', 'in_level': 250, 'awesome_level': 550},
+                 {'name': 'Lochsa Pipeline', 'site_id': '13337000', 'in_level': 8000, 'awesome_level': 10000}]
     [i.delete() for i in Wave.objects.all()]
-    [Wave.objects.create(name=i['name']) for i in wave_info]
+    [Wave.objects.create(name=i['name'], site_id=i['site_id'], in_level=i['in_level'],
+                         awesome_level=i['awesome_level']) for i in wave_info]
     context = {}
     context['segment'] = 'build'
     html_template = loader.get_template('build.html')
