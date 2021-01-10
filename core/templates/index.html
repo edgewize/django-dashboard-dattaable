@@ -16,6 +16,25 @@
                 <div class="page-wrapper">
                     <!-- [ Main Content ] start -->
                     <div class="row">
+                        {% for name, value in flow.get_fields %}
+                        {% if value %}
+                            {{ name }} => {{ value }}
+                        {% endif %}
+                        {% endfor %}
+                        {% for wave in waves %}
+                        <div class="col-md-6">
+                            <div class="card daily-sales">
+                                <div class="card-header">
+                                    <h5>{{wave.name}}</h5>
+                                </div>
+                                <div class="card-block">
+                                    <div id="morris-area-curved-chart" style="height:300px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
                         <!--[ daily sales section ] start-->
                         <div class="col-md-6 col-xl-4">
                             <div class="card daily-sales">

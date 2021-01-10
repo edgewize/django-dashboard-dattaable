@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %} {% block title %} Wave {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="pcoded-content">
+  <div class="pcoded-inner-content">
+    <!-- [ breadcrumb ] start -->
+
+    <!-- [ breadcrumb ] end -->
+    <div class="main-body">
+      <div class="page-wrapper">
+        <h1>Wave</h1>
+        <p>{{ segment }}</p>
+        <ul>
+            {% for key_1, value_1 in wave.items %}
+                <li>
+                    {{ wave.chart|safe }}
+                    <ul>
+                        {% for key_2, value_2 in value_1.items %}
+                        <li>
+                          {{ key_2 }}
+                          <ul>
+                            {% for key_3, value_3 in value_2.items %}
+                                <li>{{ key_3 }}: {{ value_3 }}</li>
+                            {% endfor %}
+                          </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+
+        </ul>
+        <!-- [ Main Content ] end -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

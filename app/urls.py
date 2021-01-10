@@ -15,4 +15,6 @@ urlpatterns = [
 
     # The home page
     path('', views.index, name='home'),
+    path('wave', views.wave,  name='wave'),
+    path('build', views.build, name='build')
 ]

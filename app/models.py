@@ -9,3 +9,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Wave(models.Model):
+    name =  models.CharField(max_length=50)
+    site_id = models.IntegerField(default=00000000)
