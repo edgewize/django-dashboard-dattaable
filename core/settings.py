@@ -10,7 +10,7 @@ from unipath import Path
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = Path(__file__).parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -21,8 +21,8 @@ DEBUG = config('DEBUG', default=False)
 
 # load production server from .env
 ALLOWED_HOSTS = ['localhost', '127.0.0.1',
-                config('SERVER', default='127.0.0.1'), 
-                'http://edgewize.pythonanywhere.com/']
+                 config('SERVER', default='127.0.0.1'),
+                 'edgewize.pythonanywhere.com']
 
 # Application definition
 
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_components',
     'app',
-    'wave'  # Enable the inner app 
+    'wave'  # Enable the inner app
 ]
 
 MIDDLEWARE = [
@@ -52,7 +52,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 LOGIN_REDIRECT_URL = "home"   # Route defined in app/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in app/urls.py
-TEMPLATE_DIR = os.path.join(BASE_DIR, "core/templates")  # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(
+    BASE_DIR, "core/templates")  # ROOT dir for templates
 
 TEMPLATES = [
     {
@@ -66,7 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-             'builtins': [
+            'builtins': [
                 'django_components.templatetags.component_tags',
             ]
         },
