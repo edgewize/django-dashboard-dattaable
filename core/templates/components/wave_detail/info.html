@@ -1,39 +1,52 @@
-<div class="card">
-  <div class="card-block border-bottom">
-    <div class="row d-flex align-items-center">
-      <div class="col-auto">
-        <i class="feather icon-power {% if wave.info.current > wave.info.settings.in_level %}text-c-green{% else %}text-c-red{%endif%} f-30 text-c-blue"></i>
-      </div>
-      <div class="col">
-        <h3 class="f-w-300">{{ wave.info.current }} CFS</h3>
-        <span class="d-block text-uppercase">{{ wave.info.status|upper }}</span>
-      </div>
-    </div>
-  </div>
-  <div class="card-block border-bottom">
-    <div class="row d-flex align-items-center">
-      <div class="col-auto">
-        <i
-          class="feather {% if wave.info.change.0 > 0%}icon-arrow-up text-c-green{% else %}icon-arrow-down text-c-red{%endif%} f-30"
-        ></i>
-      </div>
-      <div class="col">
-        <h3 class="f-w-300">{{ wave.info.change.cfs_diff }} CFS</h3>
-        <span class="d-block text-uppercase">{{ wave.info.change.periods}} DAY CHANGE</span>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-block border-bottom">
+        <div class="row d-flex align-items-center">
+          <div class="col-auto">
+            <i class="feather icon-power {% if wave.info.current > wave.info.settings.in_level %}text-c-green{% else %}text-c-red{%endif%} f-30 text-c-blue"></i>
+          </div>
+          <div class="col">
+            <h3 class="f-w-300">{{ wave.info.current }} CFS</h3>
+            <span class="d-block text-uppercase">{{ wave.info.status|upper }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="card-block">
-    <div class="row d-flex align-items-center">
-      <div class="col-auto">
-        <i
-          class="feather {% if wave.info.change.0 > 0%}icon-arrow-up text-c-green{% else %}icon-arrow-down text-c-red{%endif%} f-30"
-        ></i>
-      </div>
-      <div class="col">
-        <h3 class="f-w-300">{{ wave.info.session.pct_in_session|floatformat }}%</h3>
-        <span class="d-block text-uppercase">DAYS IN SESSION</span>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-block border-bottom">
+        <div class="row d-flex align-items-center">
+          <div class="col-auto">
+            <i
+              class="feather {% if wave.info.change.0 > 0%}icon-arrow-up text-c-green{% else %}icon-arrow-down text-c-red{%endif%} f-30"
+            ></i>
+          </div>
+          <div class="col">
+            <h3 class="f-w-300">{{ wave.info.change.cfs_diff }} CFS</h3>
+            <span class="d-block text-uppercase">{{ wave.info.change.periods}} DAY CHANGE</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-block">
+        <div class="row d-flex align-items-center">
+          <div class="col-auto">
+            <i
+              class="feather {% if wave.info.change.0 > 0%}icon-arrow-up text-c-green{% else %}icon-arrow-down text-c-red{%endif%} f-30"
+            ></i>
+          </div>
+          <div class="col">
+            <h3 class="f-w-300">{{ wave.info.session.pct_in_session|floatformat }}%</h3>
+            <span class="d-block text-uppercase">DAYS IN SESSION</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

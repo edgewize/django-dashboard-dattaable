@@ -1,11 +1,9 @@
+{%include "components/wave_detail/info.html" %}
 <div class="row">
-  <div class="col-md-2">
-    {%include "components/wave_detail/info.html" %}
-  </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     {% component name="chart_card" title="Timeline" chart=wave.chart %}
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     {% component name="chart_card" title="Session Rate" chart=wave.info.session.chart %}
   </div>
 </div>

@@ -23,9 +23,14 @@ class Analysis():
         df['in_session'] = cfs.apply(
             lambda x: 1 if x > session_level else 0)
         df['session_rate'] = cfs.apply(
-            lambda x: (x / session_level) * 100)
+            lambda x: x / session_level)
         pct_in_session = (df.sum()['in_session'] / len(df)) * 100
-        chart = pio.to_html(px.bar(df, x='datetimeUTC', y='in_session'))
+        # df = df.set_index('datetimeUTC')['in_session'].to_frame().T
+        df['month'] = df['datetimeUTC'].apply(
+            lambda x: f'{x.year}{x.month}')
+        df['day'] = df['datetimeUTC'].apply(lambda x: x.day)
+        df = df.groupby(['month', 'day']).mean()['session_rate'].unstack()
+        chart = pio.to_html(px.imshow(df))
         return {
             'pct_in_session': pct_in_session,
             'chart': chart
