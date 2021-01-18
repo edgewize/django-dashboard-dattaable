@@ -1,4 +1,5 @@
 import app.lib.hydrofunctions.__init__ as hydrofunctions
+import app.lib.NWS as NWS
 import pandas as pd
 import plotly.io as pio
 import plotly.express as px
@@ -57,6 +58,18 @@ class View(hydrofunctions.NWIS):
         site_id = str(self.site)
         return Wave.objects.get(site_id=site_id)
 
+    def forecast(self, gage_id):
+        nws = NWS.NationalWeatherService()
+        data = nws.gage_forecast(gage_id).reset_index()
+        chart = px.line(data, 'date_utc', [
+                        'flow', 'forecast_flow'], title='National Weather Service Forecast')
+        chart.update_layout(showlegend=False, yaxis={
+                            'visible': False}, xaxis={'visible': False})
+        html_chart = pio.to_html(chart)
+        return {
+            'chart': html_chart
+        }
+
     def determine_status(self, cfs):
         settings = self.settings()
         if cfs > settings.awesome_level:
@@ -80,14 +93,13 @@ class View(hydrofunctions.NWIS):
         info['status'] = self.determine_status(current)
         info['pct_in_level'] = (current / settings.in_level) * 100
         info['pct_awesome_level'] = (current / settings.awesome_level) * 100
+        info['forecast'] = self.forecast(settings.nws_gage)
         return info
 
     def build(self):
         info = self.info()
-        chart = self.chart('D')
         return {
-            'info': info,
-            'chart': chart
+            'info': info
         }
 
 
